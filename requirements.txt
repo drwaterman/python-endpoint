@@ -1,0 +1,5 @@
+fuzzywuzzy
+gevent
+gunicorn
+hug
+python-Levenshtein
