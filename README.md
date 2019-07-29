@@ -1,4 +1,4 @@
-# python-endpoint: A minimal scaffolding for creating REST endpoints using Python and Docker
+# python-endpoint: A minimal scaffolding for creating REST endpoints using Python, hug, and Docker
 
 ## Basic Use
 
