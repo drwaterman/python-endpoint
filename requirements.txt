@@ -1,5 +1,6 @@
 fuzzywuzzy
 gevent
 gunicorn
-hug
+# hug
+flask
 python-Levenshtein

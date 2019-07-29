@@ -7,13 +7,13 @@
 To start the REST server in dev mode, run:
 
 ```
-hug -f api.py
+python api.py
 ```
 
-This will start a server on port 8000. Navigate your browser to http://localhost:8000
-and documentation of the endpoints appears.
+This will start a server on port 5000. Navigate your browser to http://localhost:5000/metrics
+and the hard-coded response should appear.
 
-To try out the POST endpoint, you can use `curl` or the Python `requests` library.
+To try out the `/similarity_score` POST endpoint, you can use `curl` or the Python `requests` library.
 
 
 ## Testing
@@ -28,7 +28,7 @@ pytest
 
 ## Production
 
-So far, we've only used the dev/test server built in to `hug`. 
+So far, we've only used the dev/test server built in to `flask`. 
 To deploy on a production-grade wsgi webserver,
 we will use `gunicorn`. `gunicorn` is avaliable to install via `pip` and
 is listed in `requirements.txt`.
@@ -36,8 +36,8 @@ is listed in `requirements.txt`.
 To run on the command-line:
 
 ```
-gunicorn -k gevent -b 0.0.0.0 api:__hug_wsgi__
+gunicorn -k gevent -b 0.0.0.0:5000 api
 ```
 
 ## Docker for Deployment
-This module also contains a Dockerfile that can be used to build an image that automates running the REST server. It installs all the required libraries and starts `gunicorn`, on port 8000. You need to expose port 8000 to access it from the host machine.
+This module also contains a Dockerfile that can be used to build an image that automates running the REST server. It installs all the required libraries and starts `gunicorn`, on port 5000. You need to expose port 5000 to access it from the host machine.

@@ -1,7 +1,3 @@
-import hug
-import api
-
-
 def test_similarity_score():
     comparison_string = 'Hello World.'
     strings = [{'id': 1, 'body': 'Hello Wrrld.'},
@@ -10,10 +6,10 @@ def test_similarity_score():
                ]
 
     for string in strings:
-        response = hug.test.post(api, 'similarity_score',
-                                 {'comparison_text': comparison_string, 'text': string['body']})
-        assert response.status == '200 OK'
-        score = response.data
+        response = requests.post('http://0.0.0.0:5000/similarity_score',
+                                 json={'comparison_text': comparison_string, 'text': string})
+        assert response.status_code == 200
+        score = response.json()['score']
         assert isinstance(score, float)
         assert 0 <= score <= 1
 

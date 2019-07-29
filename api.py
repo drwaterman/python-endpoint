@@ -1,17 +1,19 @@
 from fuzzywuzzy import fuzz
-import hug
+from flask import Flask, request, abort, jsonify
+
+application = Flask(__name__)
 
 
 def compare(primary_string, secondary_string):
     """
     Helper method with the scoring logic for the /similarity_score endpoint.
     """
-    fuzz_score = fuzz.ratio(primary_string, secondary_string)/100
+    fuzz_score = fuzz.ratio(primary_string, secondary_string) / 100
     return fuzz_score
 
 
-@hug.post("/similarity_score")
-def similarity_score(comparison_text: hug.types.text, text: hug.types.text):
+@application.route("/similarity_score", methods=["POST"])
+def similarity_score():
     """
     Score the comparison_string for similarity to the others. Can be used for
     comparing company names, sentences, etc. Scale is 0 to 1 (1 is perfect match).
@@ -29,11 +31,15 @@ def similarity_score(comparison_text: hug.types.text, text: hug.types.text):
         float from 0 to 1
 
     """
+    if not request.json or not 'comparison_text' in request.json or not 'text' in request.json:
+        abort(400)
+    comparison_text = request.json['comparison_text']
+    text = request.json['text']
     output_score = compare(comparison_text, text)
-    return output_score
+    return jsonify({'score': output_score}), 200
 
 
-@hug.get("/metrics")
+@application.route("/metrics", methods=["GET"])
 def metrics():
     """
     Endpoint to get model scores in order to track performance over time.
@@ -46,16 +52,4 @@ def metrics():
 
 
 if __name__ == "__main__":
-    """
-    Demonstrate use of api as a module.
-    """
-    comparison_string = 'Hello World.'
-    strings = [{'id': 1, 'body': 'Hello Wrrld.'},
-               {'id': 2, 'body': 'H3ll0 W0rld#'},
-               {'id': 3, 'body': 'Heck no dog.'},
-               ]
-
-    print(f"Similarity to '{comparison_string}':")
-    for string in strings:
-        score = similarity_score(comparison_string, string['body'])
-        print(f"id {string['id']}, '{string['body']}': {score}")
+    application.run(debug=True)
