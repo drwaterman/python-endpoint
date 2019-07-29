@@ -1,6 +1,7 @@
-fuzzywuzzy
-gevent
-gunicorn
-# hug
-flask
-python-Levenshtein
+Flask==1.1.1
+fuzzywuzzy==0.17.0
+gevent==1.4.0
+gunicorn==19.9.0
+pytest==5.0.1
+pytest-flask==0.15.0
+python-Levenshtein==0.12.0

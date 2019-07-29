@@ -10,7 +10,7 @@ To start the REST server in dev mode, run:
 python api.py
 ```
 
-This will start a server on port 5000. Navigate your browser to http://localhost:5000/metrics
+This will start a server on port 5000. Navigate your browser to http://localhost:5000/
 and the hard-coded response should appear.
 
 To try out the `/similarity_score` POST endpoint, you can use `curl` or the Python `requests` library.
@@ -18,7 +18,7 @@ To try out the `/similarity_score` POST endpoint, you can use `curl` or the Pyth
 
 ## Testing
 
-Ensure test libraries are installed with `pip install -r tests_require.txt`
+Ensure test libraries are installed from `requirements.txt`.
 
 Then, ensure the tests pass by running:
 
