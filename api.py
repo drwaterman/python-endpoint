@@ -9,6 +9,10 @@ def create_app():
     def home():
         return jsonify({'message': 'OK'}), 200
 
+    @app.route('/health/check')
+    def health_check():
+        return jsonify({'message': 'Up and running'}), 200
+
     def compare(primary_string, secondary_string):
         """
         Helper method with the scoring logic for the /similarity_score endpoint.

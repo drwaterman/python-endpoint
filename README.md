@@ -13,7 +13,12 @@ python api.py
 This will start a server on port 5000. Navigate your browser to http://localhost:5000/
 and the hard-coded response should appear.
 
-To try out the `/similarity_score` POST endpoint, you can use `curl` or the Python `requests` library.
+To try out the `/similarity_score` POST endpoint, you can use `curl` or the Python `requests` library, e.g.:
+
+```python
+r = requests.post('http://0.0.0.0:5000/similarity_score', 
+                  json={'comparison_text': 'Hello World', 'text': 'Hrllo Wrrld'})
+```
 
 
 ## Testing
