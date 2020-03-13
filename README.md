@@ -10,7 +10,7 @@ To start the REST server in dev mode, run:
 uvicorn main:app --reload
 ```
 
-This will start a server on port 8000. Navigate your browser to http://localhost:8000
+This will start a server on port 8000. Navigate your browser to http://localhost:8000/docs
 and documentation of the endpoints appears.
 
 To try out the POST endpoint, you can use `curl` or the Python `requests` library.
