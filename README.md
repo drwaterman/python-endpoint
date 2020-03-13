@@ -1,13 +1,13 @@
-# python-endpoint: A minimal scaffolding for creating REST endpoints using Python, hug, and Docker
+# python-endpoint: A minimal scaffolding for creating REST endpoints using Python, FastAPI, and Docker
 
 ## Basic Use
 
-`api.py` is the Python script that defines the endpoint(s). Logic can be in api.py, or it can be imported from other Python modules if more complexity is required.
+`main.py` is the Python script that defines the endpoint(s). Logic can be in main.py, or it can be imported from other Python modules if more complexity is required.
 
 To start the REST server in dev mode, run:
 
 ```
-hug -f api.py
+uvicorn main:app --reload
 ```
 
 This will start a server on port 8000. Navigate your browser to http://localhost:8000
@@ -18,9 +18,7 @@ To try out the POST endpoint, you can use `curl` or the Python `requests` librar
 
 ## Testing
 
-Ensure test libraries are installed with `pip install -r tests_require.txt`
-
-Then, ensure the tests pass by running:
+Testing uses the `pytest` library. Run the tests pass from the project directory by running:
 
 ```
 pytest
@@ -28,16 +26,14 @@ pytest
 
 ## Production
 
-So far, we've only used the dev/test server built in to `hug`. 
-To deploy on a production-grade wsgi webserver,
-we will use `gunicorn`. `gunicorn` is avaliable to install via `pip` and
-is listed in `requirements.txt`.
+This module contains a Dockerfile that can be used to build an image that automates running the REST server. It installs all the required libraries and starts `gunicorn`, on port 80. You need to expose port 80 to access it from the host machine.
+`gunicorn` is a production-grade wsgi webserver.
 
-To run on the command-line:
+An example of how to build the Docker image and run it:
 
 ```
-gunicorn -k gevent -b 0.0.0.0 api:__hug_wsgi__
+docker build -t python-endpoint .
+docker run -d --name endpoint1 -p 80:80 python-endpoint
 ```
 
-## Docker for Deployment
-This module also contains a Dockerfile that can be used to build an image that automates running the REST server. It installs all the required libraries and starts `gunicorn`, on port 8000. You need to expose port 8000 to access it from the host machine.
+This will start the container detached (in the background) and set up port forwarding on port 80. Now you can access it directly at http://localhost/ or get the OpenAPI spec at http://localhost/docs/

@@ -1,5 +1,4 @@
+fastapi[all]
 fuzzywuzzy
-gevent
-gunicorn
-hug
+pytest
 python-Levenshtein
