@@ -1,4 +1,5 @@
 Flask==1.1.1
+flask-restplus==0.13.0
 fuzzywuzzy==0.17.0
 gevent==1.4.0
 gunicorn==19.9.0
